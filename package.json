@@ -1,0 +1,21 @@
+{
+  "name": "dc_ts-14",
+  "version": "1.0.0",
+  "description": "DiscordTS bot template",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node ."
+  },
+  "main": "dist/index.js",
+  "author": "NakreS",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "tsx": "^4.7.1"
+  }
+}
