@@ -3,6 +3,7 @@ import {
   CommandInteraction,
   GuildChannel,
   Guild,
+  TextChannel,
 } from "discord.js";
 import BotDescriptions from "../Interfaces/IDescription";
 import setParentChannel from "../helpers/setParentChannel";
