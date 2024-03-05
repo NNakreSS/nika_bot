@@ -10,18 +10,22 @@ module.exports = {
       const guild: Guild = member.guild;
 
       // kullanıcıya verilecek rol
-      const role: any = guild.roles.cache.get(config.customerRoleId as string);
+      const role: any = guild.roles.cache.get(
+        config.roleIds.customerRoleId as string
+      );
       // rolü kullanıcıya ver
       await member.roles.add(role);
 
       // Kullanıcının katıldığı mesajın gösterileceği kanalı alma
       const channel: TextChannel | undefined = guild.channels.cache.get(
-        config.joinNotificationChanelId as string
+        config.chanelIds.joinNotificationChanelId as string
       ) as TextChannel;
 
       // Kanal bulunamadıysa hata mesajı gönderme
       if (!channel) {
-        console.error(`Kanal bulunamadı: ${config.joinNotificationChanelId}`);
+        console.error(
+          `Kanal bulunamadı: ${config.chanelIds.joinNotificationChanelId}`
+        );
         return;
       }
 
@@ -36,7 +40,7 @@ module.exports = {
           url: member.user.defaultAvatarURL,
         })
         .setColor("#00ff00")
-        .setTitle(`Sunucuya Katıldı!`)
+        .setTitle(`<@${member.user.id}> Sunucuya Katıldı!`)
         .addFields(
           {
             name: "Hesap oluşturulma tarihi",
@@ -49,7 +53,7 @@ module.exports = {
         )
         .setTimestamp();
 
-      await channel.send({ content: member.toString(), embeds: [embed] });
+      await channel.send({ embeds: [embed] });
     } catch (error) {
       console.error("guildMemberAdd | " + error);
     }

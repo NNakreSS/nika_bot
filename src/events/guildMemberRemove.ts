@@ -11,12 +11,14 @@ module.exports = {
 
       // Kullanıcının ayrıldığı mesajının gösterileceği kanalı alma
       const channel: TextChannel | undefined = guild.channels.cache.get(
-        config.leaveNotificationChanelId as string
+        config.chanelIds.leaveNotificationChanelId as string
       ) as TextChannel;
 
       // Kanal bulunamadıysa hata mesajı gönderme
       if (!channel) {
-        console.error(`Kanal bulunamadı: ${config.leaveNotificationChanelId}`);
+        console.error(
+          `Kanal bulunamadı: ${config.chanelIds.leaveNotificationChanelId}`
+        );
         return;
       }
 
@@ -30,10 +32,10 @@ module.exports = {
           url: member.user.defaultAvatarURL,
         })
         .setColor("Red")
-        .setTitle(`Sunucudan ayrıldı!`)
+        .setTitle(`<@${member.user.id}> Sunucudan ayrıldı!`)
         .setDescription(`Toplam Üye Sayısı: ${totalMemberCount}`)
         .setTimestamp();
-      await channel.send({ content: member.toString(), embeds: [embed] });
+      await channel.send({ embeds: [embed] });
     } catch (error) {
       console.error("guildMemberAdd Error: " + error);
     }

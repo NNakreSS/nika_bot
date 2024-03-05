@@ -1,7 +1,10 @@
 export default interface ConfigTypes {
-  joinNotificationChanelId: String;
-  leaveNotificationChanelId: String;
-  customerRoleId: String;
+  chanelIds: {
+    joinNotificationChanelId: String;
+    leaveNotificationChanelId: String;
+    customerRoleLogChanelId: String;
+  };
+  roleIds: { customerRoleId: String };
   permissionLevels: {
     [key: number]: string;
   };
