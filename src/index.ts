@@ -26,6 +26,7 @@ const commandFiles = readdirSync(commandsFileRoot).filter(
 const bot = new Client({
   intents: [
     GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMembers,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.GuildMessageReactions,
   ],

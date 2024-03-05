@@ -1,4 +1,4 @@
-import { Guild, GuildMember, TextChannel } from "discord.js";
+import { EmbedBuilder, Guild, GuildMember, TextChannel } from "discord.js";
 import ConfigTypes from "../Interfaces/IConfig";
 const config: ConfigTypes = require(`${process.cwd()}/data/config.json`);
 
@@ -22,13 +22,18 @@ module.exports = {
 
       // sunucudaki toplam üye sayısı
       const totalMemberCount: number = guild.memberCount;
-
-      // Kullanıcı katıldı mesajı gönderme
-      await channel.send(
-        `${member.toString()} **${
-          member.user.tag
-        }** Sunucudan ayrıldı! , Kalan Toplam üye ${totalMemberCount} `
-      );
+      // Kullanıcı ayrıldı mesajı gönderme
+      const embed = new EmbedBuilder()
+        .setAuthor({
+          name: member.nickname ?? member.displayName,
+          iconURL: member.user.defaultAvatarURL,
+          url: member.user.defaultAvatarURL,
+        })
+        .setColor("Red")
+        .setTitle(`Sunucudan ayrıldı!`)
+        .setDescription(`Toplam Üye Sayısı: ${totalMemberCount}`)
+        .setTimestamp();
+      await channel.send({ content: member.toString(), embeds: [embed] });
     } catch (error) {
       console.error("guildMemberAdd Error: " + error);
     }

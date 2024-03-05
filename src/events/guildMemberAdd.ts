@@ -1,4 +1,4 @@
-import { Guild, GuildMember, TextChannel } from "discord.js";
+import { Guild, GuildMember, TextChannel, EmbedBuilder } from "discord.js";
 import ConfigTypes from "../Interfaces/IConfig";
 const config: ConfigTypes = require(`${process.cwd()}/data/config.json`);
 
@@ -29,13 +29,29 @@ module.exports = {
       const totalMemberCount: number = guild.memberCount;
 
       // Kullanıcı katıldı mesajı gönderme
-      await channel.send(
-        `${member.toString()} **${
-          member.user.tag
-        }** sunucuya katıldı! , Toplam üye ${totalMemberCount} `
-      );
+      const embed = new EmbedBuilder()
+        .setAuthor({
+          name: member.nickname ?? member.displayName,
+          iconURL: member.user.defaultAvatarURL,
+          url: member.user.defaultAvatarURL,
+        })
+        .setColor("#00ff00")
+        .setTitle(`Sunucuya Katıldı!`)
+        .addFields(
+          {
+            name: "Hesap oluşturulma tarihi",
+            value: member.user.createdAt.toLocaleDateString(),
+          },
+          {
+            name: "Toplam üye",
+            value: `Toplam Üye Sayısı: ${totalMemberCount}`,
+          }
+        )
+        .setTimestamp();
+
+      await channel.send({ content: member.toString(), embeds: [embed] });
     } catch (error) {
-      console.error("guildMemberAdd Error: " + error);
+      console.error("guildMemberAdd | " + error);
     }
   },
 };
