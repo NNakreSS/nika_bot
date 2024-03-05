@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, CommandInteraction } from "discord.js";
-import { BotDescriptions } from "../Interfaces/IDescription";
+import BotDescriptions from "../Interfaces/IDescription";
 
 const pingCommand: BotDescriptions = {
   name: "ping",
@@ -7,6 +7,7 @@ const pingCommand: BotDescriptions = {
 };
 
 module.exports = {
+  permissionLevel: 0,
   ...pingCommand,
   data: new SlashCommandBuilder()
     .setName(pingCommand.name)

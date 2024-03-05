@@ -1,5 +1,6 @@
-import { Interaction } from "discord.js";
+import { GuildMember, Interaction } from "discord.js";
 import { commands } from "..";
+import permission from "../helpers/permission";
 
 module.exports = {
   name: "interactionCreate",
@@ -9,7 +10,16 @@ module.exports = {
     try {
       let command = commands.get(interaction.commandName);
       if (!command) return;
-      command.run(interaction);
+      const commandAuthor = interaction.member as GuildMember;
+      const memberHasPermission = permission(commandAuthor, command);
+      if (memberHasPermission) {
+        command.run(interaction);
+      } else {
+        interaction.reply({
+          content: "Bu komut için gerekli yetkiye sahip değilsin!",
+          ephemeral: true,
+        });
+      }
     } catch (error) {
       console.error(error);
       await interaction.reply({ content: "Bir hata oluştu!", ephemeral: true });

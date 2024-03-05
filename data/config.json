@@ -1,5 +1,16 @@
 {
   "joinNotificationChanelId": "1108748071485063178",
   "leaveNotificationChanelId": "1108748071485063178",
-  "customerRoleId": "845017052489187390"
+  "customerRoleId": "845017052489187390",
+  "permissionLevels": {
+    "0": "Normal Kullanıcı",
+    "1": "Moderatör",
+    "2": "Yönetici",
+    "3": "Owner"
+  },
+  "rolePermissions": {
+    "1092601334345244804": 1,
+    "839271699777060905": 2,
+    "1213861358014300223": 3
+  }
 }

@@ -1,4 +1,4 @@
-export interface BotDescriptions {
+export default interface BotDescriptions {
   name: string;
   description: string;
 }

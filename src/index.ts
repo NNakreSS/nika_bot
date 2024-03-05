@@ -8,8 +8,8 @@ import {
   ApplicationCommand,
 } from "discord.js";
 import { readdirSync } from "fs";
-import { CommandType } from "./Interfaces/ICommand";
-import { EventType } from "./Interfaces/IEvent";
+import CommandType from "./Interfaces/ICommand";
+import EventType from "./Interfaces/IEvent";
 
 const commandsFileRoot = `${process.cwd()}/src/commands`;
 const eventsFileRoot = `${process.cwd()}/src/events`;
