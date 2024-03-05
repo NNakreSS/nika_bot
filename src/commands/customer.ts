@@ -14,17 +14,17 @@ import addRole from "../helpers/addRole";
 import createTextChanel from "../helpers/createTextChanel";
 const config: ConfigTypes = require(`${process.cwd()}/data/config.json`);
 
-const pingCommand: BotDescriptions = {
+const customerCommand: BotDescriptions = {
   name: "customer",
   description: "Take a customer role with Transaction ID",
 };
 
 module.exports = {
   permissionLevel: 0,
-  ...pingCommand,
+  ...customerCommand,
   data: new SlashCommandBuilder()
-    .setName(pingCommand.name)
-    .setDescription(pingCommand.description)
+    .setName(customerCommand.name)
+    .setDescription(customerCommand.description)
     .addStringOption((option) =>
       option
         .setName("id")
