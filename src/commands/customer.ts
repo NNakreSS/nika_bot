@@ -4,12 +4,14 @@ import {
   GuildMember,
   EmbedBuilder,
   TextChannel,
+  Interaction,
 } from "discord.js";
 import BotDescriptions from "../Interfaces/IDescription";
 import axios from "axios";
 import "dotenv/config";
 import ConfigTypes from "../Interfaces/IConfig";
 import addRole from "../helpers/addRole";
+import createTextChanel from "../helpers/createTextChanel";
 const config: ConfigTypes = require(`${process.cwd()}/data/config.json`);
 
 const pingCommand: BotDescriptions = {
@@ -31,7 +33,10 @@ module.exports = {
     ),
 
   async run(interaction: CommandInteraction) {
+    // sunucu
     const guild = interaction.guild;
+    // kullanıcı
+    const member = interaction.member as GuildMember;
     try {
       // girilen satın alım idsini al
       const transactionId = interaction.options.get("id")!.value;
@@ -68,8 +73,6 @@ module.exports = {
         });
       }
 
-      // kullanıcı
-      const member = interaction.member as GuildMember;
       // rol ver
       addRole(member, config.roleIds.customerRoleId as string);
 
@@ -78,12 +81,57 @@ module.exports = {
         (packet: { name: string }) => packet.name
       );
 
+      // ticket kanal adı
+      const ticketChanelName = ("ticket_" + member.user.username) as String;
+      // customer ticket kanalını oluştur
+      const ticketChanel = await createTextChanel({
+        interaction: interaction as Interaction,
+        channelName: ticketChanelName,
+        categoryName: "CUSTOMER_TICKETS",
+        permissionOverwrites: [
+          {
+            id: guild!.roles.everyone,
+            deny: ["ViewChannel"],
+          },
+          {
+            id: interaction.user.id,
+            allow: ["ViewChannel", "SendMessages"],
+          },
+        ],
+      });
+
+      // customer ticket kanalına başlangıç mesajını at
+      const chanelEmbed = new EmbedBuilder()
+        .setColor(0x00ff00)
+        .setAuthor({ name: "Your support room is ready" })
+        .setThumbnail(guild!.iconURL())
+        .addFields(
+          {
+            name: "Hi",
+            value: `<@${interaction.user.id}>`,
+            inline: true,
+          },
+          {
+            name: "Open Ticket",
+            value: "You can request support through this channel",
+            inline: true,
+          }
+        )
+        .setFooter({ text: "Made by NakreS", iconURL: guild?.iconURL() ?? "" });
+
+      // ticket mesajını gönder
+      ticketChanel!.send({ embeds: [chanelEmbed] });
+
       // Satın alım detaylarını gösteren embed
       const embed = new EmbedBuilder()
         .setColor("Blue")
         .setAuthor({ name: "Purchasing information" })
         .setThumbnail(guild!.iconURL())
         .addFields(
+          {
+            name: "Your ticket channel",
+            value: `${ticketChanel!.toString()}`,
+          },
           {
             name: "User",
             value: `<@${interaction.user.id}>`,
@@ -105,6 +153,10 @@ module.exports = {
             value: `${data.amount} ${data.currency.iso_4217}`,
           },
           {
+            name: "Transaction ID",
+            value: transactionId as string,
+          },
+          {
             name: "Date Purchased",
             value: data.date.slice(0, 10),
           }
@@ -113,7 +165,8 @@ module.exports = {
           text: `Made By NakreS`,
           iconURL: guild!.iconURL() ?? "",
         });
-      // .addField(`Your ticket channel`, `${channel.toString()}`)
+
+      // customer komutunu yanıtla
       interaction.reply({ embeds: [embed], ephemeral: true });
 
       // customer role bildiriminin atılacağı kanal
