@@ -11,8 +11,8 @@ import { readdirSync } from "fs";
 import CommandType from "./Interfaces/ICommand";
 import EventType from "./Interfaces/IEvent";
 
-const commandsFileRoot = `${process.cwd()}/src/commands`;
-const eventsFileRoot = `${process.cwd()}/src/events`;
+const commandsFileRoot = `${__dirname}/commands`;
+const eventsFileRoot = `${__dirname}/events`;
 
 // komutları içerecek olan array
 export const commands = new Collection<string, CommandType>();
