@@ -21,12 +21,24 @@ module.exports = {
 
   async run(interaction: CommandInteraction) {
     const guild: Guild = interaction.guild!;
-    console.log(guild.name);
-    await setParentChannel({
-      guild: guild,
-      categoryName: "CUSTOMER_TICKETS",
-      channel: interaction.channel as GuildChannel,
-    });
-    interaction.reply({ content: "Ticket is online!", ephemeral: true });
+    // kanalı al ve text kanalı olarak belirt
+    const channel = interaction.channel as TextChannel;
+    // kanal adını al
+    const chanelName = channel.name as String;
+
+    // kanalın bir ticket kanalı olup olmadığını kontrol et
+    if (chanelName.startsWith("ticket_")) {
+      await setParentChannel({
+        guild: guild,
+        categoryName: "CUSTOMER_TICKETS",
+        channel: interaction.channel as GuildChannel,
+      });
+      interaction.reply({ content: "Ticket is online!", ephemeral: true });
+    } else {
+      interaction.reply({
+        content: "This is not a ticket channel!",
+        ephemeral: true,
+      });
+    }
   },
 };
