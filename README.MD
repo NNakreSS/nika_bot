@@ -9,6 +9,10 @@
 ```
 
 ```bash
+ yarn
+```
+
+```bash
  yarn dev // for development (hot reload and start)
 ```
 
@@ -24,6 +28,10 @@
 
 ```bash
  npm install -g typescript
+```
+
+```bash
+ npm install
 ```
 
 ```bash

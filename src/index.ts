@@ -9,11 +9,13 @@ import {
 } from "discord.js";
 import { readdirSync } from "fs";
 import { CommandType } from "./Interfaces/ICommand";
+import { EventType } from "./Interfaces/IEvent";
 
 const commandsFileRoot = `${process.cwd()}/src/commands`;
+const eventsFileRoot = `${process.cwd()}/src/events`;
 
 // komutları içerecek olan array
-const commands = new Collection<string, CommandType>();
+export const commands = new Collection<string, CommandType>();
 
 // komut dosyalarından komutların isimleri
 const commandFiles = readdirSync(commandsFileRoot).filter(
@@ -59,20 +61,23 @@ async function registerSlashCommands() {
     });
 
     console.log("Successfully reloaded application (/) commands.");
+    discordEventHandlersListener();
   } catch (err) {
     console.error(err);
   }
 }
 
-bot.on("interactionCreate", async (interaction) => {
-  // etkileşimin ChatInputCommandInteraction olup olmadığını kontrol et
-  if (!interaction.isChatInputCommand()) return;
-  try {
-    let command = commands.get(interaction.commandName);
-    if (!command) return;
-    command.run(interaction);
-  } catch (error) {
-    console.error(error);
-    await interaction.reply({ content: "Bir hata oluştu!", ephemeral: true });
-  }
-});
+async function discordEventHandlersListener() {
+  const eventFiles: string[] = readdirSync(eventsFileRoot).filter(
+    (file) => file.endsWith(".js") || file.endsWith(".ts")
+  );
+
+  eventFiles.forEach((file) => {
+    const event: EventType = require(`${eventsFileRoot}/${file}`);
+    if (event.once) {
+      bot.once(event.name, (...args) => event.execute(...args));
+    } else {
+      bot.on(event.name, (...args) => event.execute(...args));
+    }
+  });
+}
