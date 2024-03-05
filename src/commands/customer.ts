@@ -9,6 +9,7 @@ import BotDescriptions from "../Interfaces/IDescription";
 import axios from "axios";
 import "dotenv/config";
 import ConfigTypes from "../Interfaces/IConfig";
+import addRole from "../helpers/addRole";
 const config: ConfigTypes = require(`${process.cwd()}/data/config.json`);
 
 const pingCommand: BotDescriptions = {
@@ -69,12 +70,8 @@ module.exports = {
 
       // kullanıcı
       const member = interaction.member as GuildMember;
-      // kullanıcıya verilecek rol
-      const customerRole: any = guild!.roles.cache.get(
-        config.roleIds.customerRoleId as string
-      );
-      // customer role kullanıcıya ekleniyor
-      await member.roles.add(customerRole);
+      // rol ver
+      addRole(member, config.roleIds.customerRoleId as string);
 
       // satın alınan ürünler
       const packages: string[] = data.packages.map(

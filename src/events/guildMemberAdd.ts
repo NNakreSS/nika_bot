@@ -1,5 +1,6 @@
 import { Guild, GuildMember, TextChannel, EmbedBuilder } from "discord.js";
 import ConfigTypes from "../Interfaces/IConfig";
+import addRole from "../helpers/addRole";
 const config: ConfigTypes = require(`${process.cwd()}/data/config.json`);
 
 module.exports = {
@@ -9,12 +10,8 @@ module.exports = {
       // katınılan sunucu
       const guild: Guild = member.guild;
 
-      // kullanıcıya verilecek rol
-      const role: any = guild.roles.cache.get(
-        config.roleIds.customerRoleId as string
-      );
-      // rolü kullanıcıya ver
-      await member.roles.add(role);
+      // rol ver
+      addRole(member, config.roleIds.defaultRole as string);
 
       // Kullanıcının katıldığı mesajın gösterileceği kanalı alma
       const channel: TextChannel | undefined = guild.channels.cache.get(

@@ -5,7 +5,8 @@
     "customerRoleLogChanelId": "1108748071485063178"
   },
   "roleIds": {
-    "customerRoleId": "845017052489187390"
+    "customerRoleId": "845017052489187390",
+    "defaultRole": "845017052489187390"
   },
   "permissionLevels": {
     "0": "Normal Kullanıcı",
