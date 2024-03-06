@@ -60,6 +60,7 @@ module.exports = {
       componentType: ComponentType.Button,
     });
 
+    // buton olaylarını dinle
     collector.on("collect", (interaction) => {
       if (interaction.customId === "create-ticket") {
         interaction.reply("Click create Button");
