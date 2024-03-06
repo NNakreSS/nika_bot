@@ -1,4 +1,5 @@
 import {
+  ButtonInteraction,
   CategoryChannelResolvable,
   ChannelType,
   Collection,
@@ -8,7 +9,7 @@ import {
 } from "discord.js";
 
 type createTextChanelParams = {
-  interaction: Interaction;
+  interaction: Interaction | ButtonInteraction;
   channelName: String;
   categoryName?: String;
   permissionOverwrites?:
