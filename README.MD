@@ -1,8 +1,15 @@
 # Discord bot | nika
 
-[Discord JS 14.14.1](https://discord.js.org/docs/packages/discord.js/14.14.1) için typeScript template
+[Discord JS 14.14.1](https://discord.js.org/docs/packages/discord.js/14.14.1) TS Discord bot
 
-## yarn
+## Futures
+ * Tebex Transaction id üzerinden role ve customer ticket oluşturmak ve yönetmek.
+ * Ticket oluşturmak ve yönetmek.
+ * 
+
+## Starter
+
+### yarn
 
 ```bash
  yarn add -g typescript
@@ -24,7 +31,7 @@
  yarn start // just production
 ```
 
-## npm
+### npm
 
 ```bash
  npm install -g typescript
