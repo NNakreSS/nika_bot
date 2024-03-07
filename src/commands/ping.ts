@@ -7,7 +7,7 @@ const pingCommand: BotDescriptions = {
 };
 
 module.exports = {
-  permissionLevel: 0,
+  permissionLevel: 2,
   ...pingCommand,
   data: new SlashCommandBuilder()
     .setName(pingCommand.name)
