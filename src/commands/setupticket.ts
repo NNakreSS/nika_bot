@@ -33,7 +33,7 @@ module.exports = {
 
     // tücket oluşturma butonu
     const createTicketButton: ButtonBuilder = new ButtonBuilder()
-      .setCustomId("create-ticket")
+      .setCustomId("ticket-create")
       .setLabel("Create ticket")
       .setStyle(ButtonStyle.Secondary);
 

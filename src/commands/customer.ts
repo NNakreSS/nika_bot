@@ -82,7 +82,7 @@ module.exports = {
       );
 
       // ticket kanal adı
-      const ticketChanelName = ("ticket_" + member.user.username) as String;
+      const ticketChanelName = (member.user.username + "-ticket") as String;
       // customer ticket kanalını oluştur
       const ticketChanel = await createTextChanel({
         interaction: interaction as Interaction,

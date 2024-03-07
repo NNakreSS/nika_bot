@@ -27,11 +27,10 @@ export default async ({
   const guild = interaction.guild!;
   try {
     // kullanıcı adındaki noktayı kısa çizgiye çevir (kanal isimlerinde noktaya izin verilmez)
-    channelName = channelName.replace(/[.]/g, "-");
+    channelName = channelName.replace(/[.]/g, "_");
 
     // bu isimde bir kanal var mı
     const existingChannel = guild.channels.cache.find((channel) => {
-      console.log(channel.name, channelName);
       return channel?.name.toLowerCase() === channelName.toLowerCase();
     });
 
@@ -52,7 +51,6 @@ export default async ({
           name: categoryName as string,
           type: ChannelType.GuildCategory,
         });
-        console.log(category);
       }
 
       const newChannel = await guild.channels.create({
