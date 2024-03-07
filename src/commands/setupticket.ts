@@ -5,19 +5,13 @@ import {
   ButtonBuilder,
   ButtonStyle,
   ActionRowBuilder,
-  ComponentType,
-  ButtonInteraction,
-  Interaction,
 } from "discord.js";
 import BotDescriptions from "../Interfaces/IDescription";
-import createTextChanel from "../helpers/createTextChanel";
 
 const setupticketTool: BotDescriptions = {
   name: "setupticket",
   description: "Ticket başlangıç kanalını oluştur!",
 };
-
-const ticketCategoryName: String = "TICKETS";
 
 module.exports = {
   permissionLevel: 2,
@@ -49,7 +43,7 @@ module.exports = {
     );
 
     // ticket oluşturucu mesajını gönder
-    const ticketSetup = await interaction.channel!.send({
+    await interaction.channel!.send({
       embeds: [setupEmbed],
       components: [buttonRow],
     });
@@ -57,45 +51,6 @@ module.exports = {
     interaction.reply({
       content: "Ticket botu kurulum sağladı 🎉",
       ephemeral: true,
-    });
-
-    // buton eventlarını dinlemek için mesaj üzerinden collector oluştur
-    const collector = ticketSetup.createMessageComponentCollector({
-      componentType: ComponentType.Button,
-    });
-
-    // buton olaylarını dinle
-    collector.on("collect", async (interaction: ButtonInteraction) => {
-      const guild = interaction.guild!;
-      if (interaction.customId === "create-ticket") {
-        const ticketChanel = await createTextChanel({
-          interaction: interaction as ButtonInteraction,
-          channelName: `ticket-${interaction.user.username}`,
-          categoryName: ticketCategoryName,
-          permissionOverwrites: [
-            {
-              id: guild!.roles.everyone,
-              deny: ["ViewChannel"],
-            },
-            {
-              id: interaction.user.id,
-              allow: ["ViewChannel", "SendMessages"],
-            },
-          ],
-        });
-
-        if (ticketChanel) {
-          interaction.reply({
-            content: `Ticket başarıyla oluşturuldu! ${ticketChanel.toString()}`,
-            ephemeral: true,
-          });
-        } else {
-          interaction.reply({
-            content: "Ticket oluşturulamadı!",
-            ephemeral: true,
-          });
-        }
-      }
     });
   },
 };
