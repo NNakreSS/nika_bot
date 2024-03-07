@@ -33,7 +33,7 @@ export default async ({
     }
 
     // parent kategori altına taşı
-    await channel.setParent(category);
+    await channel.setParent(category, { lockPermissions: false });
   } catch (error) {
     console.error(error);
   }

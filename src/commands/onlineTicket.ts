@@ -28,7 +28,7 @@ module.exports = {
     const chanelName = channel.name as String;
 
     // kanalın bir ticket kanalı olup olmadığını kontrol et
-    if (chanelName.endsWith("-ticket")) {
+    if (chanelName.endsWith("-ticket") || channel.name.startsWith("ticket")) {
       await setParentChannel({
         guild: guild,
         categoryName: "CUSTOMER_TICKETS",

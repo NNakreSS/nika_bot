@@ -25,7 +25,6 @@ module.exports = {
     try {
       if (channel.name.startsWith("ticket")) {
         setParentChannel({ guild, channel, categoryName: "CLOSED-TICKETS" });
-        channel.permissionOverwrites.edit(guild.id, { ViewChannel: false });
         interaction.reply({ content: "Ticket is closed!", ephemeral: true });
       } else {
         interaction.reply({
