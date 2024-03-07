@@ -3,10 +3,12 @@ import {
   CategoryChannelResolvable,
   ChannelType,
   Collection,
+  GuildChannel,
   Interaction,
   OverwriteResolvable,
   TextChannel,
 } from "discord.js";
+import setParentChannel from "./setParentChannel";
 
 type createTextChanelParams = {
   interaction: Interaction | ButtonInteraction;
@@ -62,6 +64,11 @@ export default async ({
 
       return newChannel as TextChannel;
     } else {
+      setParentChannel({
+        guild: guild,
+        channel: existingChannel as GuildChannel,
+        categoryName: categoryName as string,
+      });
       return existingChannel as TextChannel;
     }
   } catch (error) {

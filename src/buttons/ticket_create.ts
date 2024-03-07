@@ -1,4 +1,8 @@
-import { ButtonInteraction, EmbedBuilder } from "discord.js";
+import {
+  ButtonInteraction,
+  EmbedBuilder,
+  PermissionsBitField,
+} from "discord.js";
 import createTextChanel from "../helpers/createTextChanel";
 
 module.exports = {
@@ -14,12 +18,15 @@ module.exports = {
       categoryName: "TICKETS",
       permissionOverwrites: [
         {
-          id: guild!.roles.everyone,
-          deny: ["ViewChannel"],
+          id: guild.roles.everyone,
+          deny: [PermissionsBitField.Flags.ViewChannel],
         },
         {
           id: interaction.user.id,
-          allow: ["ViewChannel", "SendMessages"],
+          allow: [
+            PermissionsBitField.Flags.ViewChannel,
+            PermissionsBitField.Flags.SendMessages,
+          ],
         },
       ],
     });
