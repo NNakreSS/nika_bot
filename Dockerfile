@@ -6,6 +6,9 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn
 
+# Install TypeScript globally
+RUN yarn global add typescript
+
 ARG TOKEN=DEFAULT_WRONG
 ENV TOKEN=${TOKEN}
 
