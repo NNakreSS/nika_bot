@@ -15,9 +15,9 @@ ENV TOKEN=${TOKEN}
 ARG TEBEX_SECRET=DEFAULT_WRONG
 ENV TEBEX_SECRET=${TEBEX_SECRET}
 
-RUN yarn build
+COPY . .
 
-COPY ./dist .
+RUN yarn build
 
 RUN yarn add nodemon
 
