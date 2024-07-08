@@ -6,6 +6,12 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn
 
+ARG TOKEN=DEFAULT_WRONG
+ENV TOKEN=${TOKEN}
+
+ARG TEBEX_SECRET=DEFAULT_WRONG
+ENV TEBEX_SECRET=${TEBEX_SECRET}
+
 RUN yarn build
 
 COPY ./dist .
