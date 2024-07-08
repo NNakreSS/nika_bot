@@ -22,4 +22,4 @@ RUN yarn build
 RUN yarn add nodemon
 
 # Command to run the bot
-CMD ["nodemon", "index.js"]
+CMD ["nodemon", "./dist/index.js"]
