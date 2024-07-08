@@ -19,7 +19,8 @@ COPY . .
 
 RUN yarn build
 
-RUN yarn add nodemon
+# Install nodemon globally
+RUN yarn global add nodemon
 
 # Command to run the bot
 CMD ["nodemon", "./dist/index.js"]
