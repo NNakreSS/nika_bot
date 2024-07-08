@@ -1,12 +1,12 @@
 {
   "chanelIds": {
-    "joinNotificationChanelId": "933994040851071026",
-    "leaveNotificationChanelId": "933994040851071026",
-    "customerRoleLogChanelId": "1108748071485063178"
+    "joinNotificationChanelId": "867750174888951809",
+    "leaveNotificationChanelId": "867750174888951809",
+    "customerRoleLogChanelId": "1094090927057936526"
   },
   "roleIds": {
-    "customerRoleId": "845017052489187390",
-    "defaultRole": "845017052489187390"
+    "customerRoleId": "867754849789673472",
+    "defaultRole": "867748885333803019"
   },
   "permissionLevels": {
     "0": "Normal Kullanıcı",
@@ -15,8 +15,8 @@
     "3": "Owner"
   },
   "rolePermissions": {
-    "1092601334345244804": 1,
-    "839271699777060905": 2,
-    "1213861358014300223": 3
+    "867740198023725066": 1,
+    "867782453548679178": 2,
+    "867748374350790677": 3
   }
 }
